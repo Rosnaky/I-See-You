@@ -48,10 +48,15 @@ class _LoginScreenState extends State<LoginScreen> {
                 const Spacer(),
                 Text('Login to I See You',
                     textAlign: TextAlign.center,
-                    style: Theme.of(context)
-                        .textTheme
-                        .displayLarge
-                        ?.copyWith(color: myTheme.colorScheme.primary)),
+                    style: constraints.maxWidth > 600
+                        ? Theme.of(context)
+                            .textTheme
+                            .displayLarge
+                            ?.copyWith(color: myTheme.colorScheme.primary)
+                        : Theme.of(context)
+                            .textTheme
+                            .displayMedium
+                            ?.copyWith(color: myTheme.colorScheme.primary)),
                 SizedBox(height: constraints.maxHeight * 0.1),
                 Center(
                   child: SizedBox(

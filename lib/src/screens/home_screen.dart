@@ -1,7 +1,7 @@
 import 'package:ISeeYou/src/firebase/firebase_auth.dart';
 import 'package:ISeeYou/src/providers/user_provider.dart';
 import 'package:ISeeYou/src/screens/medication_screen.dart';
-import 'package:ISeeYou/src/screens/notify_screen.dart';
+import 'package:ISeeYou/src/screens/quick_action_screen.dart';
 import 'package:ISeeYou/src/widgets/bottom_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -30,7 +30,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final screens = [const NotifyScreen(), const MedicationScreen()];
+    final screens = [const QuickActionScreen(), const MedicationScreen()];
     final userProvider = Provider.of<UserProvider>(context);
 
     return Scaffold(
