@@ -10,7 +10,7 @@ import 'src/app.dart';
 void main() async {
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
-  await dotenv.load(fileName: ".env");
+  await dotenv.load(fileName: "assets/env");
   runApp(MultiProvider(providers: [
     ChangeNotifierProvider(create: (_) => UserProvider()..refreshUser())
   ], child: const ISeeYou()));
