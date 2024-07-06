@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "471457794969",
+    "project_id": "iseeyouinyourhome",
+    "storage_bucket": "iseeyouinyourhome.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:471457794969:android:4a2f752c09751388326108",
+        "android_client_info": {
+          "package_name": "com.example.icu_in_your_home"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDaGIEkI41-hG_g59cUD4Qoa31aIAORpRs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
