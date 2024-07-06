@@ -13,7 +13,7 @@ class QuickActionCard extends StatelessWidget {
   final BoxConstraints constraints;
   final String message;
   final String actionTitle;
-  final IconData actionIcon;
+  final Icon actionIcon;
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +37,7 @@ class QuickActionCard extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(actionIcon),
+              actionIcon,
               Text(actionTitle),
             ],
           ),
