@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:io';
+import 'dart:math';
 
 import 'package:ISeeYou/src/providers/user_provider.dart';
 import 'package:flutter/material.dart';
@@ -75,12 +76,6 @@ class _QuickActionCardState extends State<QuickActionCard> {
 
   @override
   Widget build(BuildContext context) {
-    double buttonSize = constraints.maxWidth * 0.015;
-    double middle = (constraints.maxWidth > 600
-            ? constraints.maxWidth * 0.15
-            : constraints.maxWidth * 0.225) -
-        buttonSize;
-
     return Consumer<UserProvider>(builder: (context, userProvider, _) {
       return Stack(
         children: [
@@ -94,6 +89,7 @@ class _QuickActionCardState extends State<QuickActionCard> {
                   : constraints.maxWidth * 0.45,
               child: _isClicked
                   ? Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         Expanded(
                           child: ElevatedButton(
@@ -111,39 +107,68 @@ class _QuickActionCardState extends State<QuickActionCard> {
                               child: const Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  Icon(Icons.sms),
+                                  Icon(
+                                    Icons.sms,
+                                  ),
                                   Text("SMS"),
                                 ],
                               )),
                         ),
-                        Column(
-                          children: userProvider.user?.emergencyContacts
-                                  .map((e) => Expanded(
-                                        child: ElevatedButton(
-                                            style: ElevatedButton.styleFrom(
-                                              shape: RoundedRectangleBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(8),
+                        Expanded(
+                          child: Column(
+                            children: userProvider.user?.emergencyContacts
+                                    .map((e) => Expanded(
+                                          child: ElevatedButton(
+                                              style: ElevatedButton.styleFrom(
+                                                shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(8),
+                                                ),
                                               ),
-                                            ),
-                                            onPressed: () {
-                                              if (!_isSending) _startTimer();
-                                              setState(() {
-                                                _isClicked = false;
-                                              });
-                                            },
-                                            child: const Column(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              children: [
-                                                Icon(Icons.phone_iphone),
-                                                Text(
-                                                    "Call Emergency Contact #1"),
-                                              ],
-                                            )),
-                                      ))
-                                  .toList() ??
-                              [Text("No emergency contacts found")],
+                                              onPressed: () {
+                                                launchUrlString("tel:$e");
+                                                setState(() {
+                                                  _isClicked = false;
+                                                });
+                                              },
+                                              child: Column(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: [
+                                                  Icon(
+                                                    Icons.phone_iphone,
+                                                    size: constraints.maxWidth >
+                                                            600
+                                                        ? min(
+                                                            constraints
+                                                                    .maxWidth *
+                                                                0.1,
+                                                            16,
+                                                          )
+                                                        : 16,
+                                                  ),
+                                                  Text(
+                                                    "Call #${userProvider.user!.emergencyContacts.indexOf(e) + 1} Emergency Contact",
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
+                                                    maxLines: 2,
+                                                    style: Theme.of(context)
+                                                        .textTheme
+                                                        .bodySmall
+                                                        ?.copyWith(
+                                                          fontSize: constraints
+                                                                      .maxWidth >
+                                                                  600
+                                                              ? 14
+                                                              : 10,
+                                                        ),
+                                                  ),
+                                                ],
+                                              )),
+                                        ))
+                                    .toList() ??
+                                [const Text("No emergency contacts found")],
+                          ),
                         ),
                       ],
                     )
@@ -169,12 +194,12 @@ class _QuickActionCardState extends State<QuickActionCard> {
             ),
           ),
           Positioned(
-            left: middle,
-            top: middle,
+            left: 0,
+            top: 16,
             child: _isClicked
                 ? ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      shape: CircleBorder(),
+                      shape: const CircleBorder(),
                     ),
                     onPressed: () => setState(() {
                           _isClicked = false;
@@ -183,12 +208,19 @@ class _QuickActionCardState extends State<QuickActionCard> {
                       children: [
                         Icon(
                           Icons.close,
-                          size: buttonSize,
                           color: Theme.of(context).colorScheme.error,
                         ),
                         Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: const Text("Close"),
+                          child: Text(
+                            "Close",
+                            style: constraints.maxWidth > 600
+                                ? Theme.of(context).textTheme.bodySmall
+                                : Theme.of(context)
+                                    .textTheme
+                                    .bodySmall
+                                    ?.copyWith(fontSize: 10),
+                          ),
                         )
                       ],
                     ))
