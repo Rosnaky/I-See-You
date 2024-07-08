@@ -21,7 +21,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
-    selectedIndex = 1;
+    selectedIndex = 0;
     Future.microtask(() {
       final userProvider = Provider.of<UserProvider>(context, listen: false);
       userProvider.refreshUser();
