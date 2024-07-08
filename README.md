@@ -5,5 +5,5 @@ An app for people who need to keep track of their medications and to alert emerg
 # Instructions to run
 
 The app is hosted at:
-https://iseeyouinyourhome.web.app 
+https://iseeyouinyourhome.web.app\n
 https://iseeyouinyourhome.firebaseapp.com
