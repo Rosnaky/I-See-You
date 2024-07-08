@@ -1,4 +1,5 @@
 import 'package:ISeeYou/firebase_options.dart';
+import 'package:ISeeYou/src/providers/medication_view_provider.dart';
 import 'package:ISeeYou/src/providers/user_provider.dart';
 
 import 'package:firebase_core/firebase_core.dart';
@@ -12,6 +13,7 @@ void main() async {
 
   await dotenv.load(fileName: "assets/env");
   runApp(MultiProvider(providers: [
-    ChangeNotifierProvider(create: (_) => UserProvider()..refreshUser())
+    ChangeNotifierProvider(create: (_) => UserProvider()..refreshUser()),
+    ChangeNotifierProvider(create: (_) => MedicationViewProvider())
   ], child: const ISeeYou()));
 }

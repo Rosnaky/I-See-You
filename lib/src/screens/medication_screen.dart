@@ -1,3 +1,5 @@
+import 'package:ISeeYou/src/widgets/medication_modify_bar.dart';
+import 'package:ISeeYou/src/widgets/medication_view.dart';
 import 'package:flutter/material.dart';
 
 class MedicationScreen extends StatefulWidget {
@@ -10,6 +12,8 @@ class MedicationScreen extends StatefulWidget {
 class _MedicationScreenState extends State<MedicationScreen> {
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Column(
+      children: [MedicationModifyBar(), MedicationView()],
+    );
   }
 }
