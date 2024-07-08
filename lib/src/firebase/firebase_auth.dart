@@ -1,3 +1,4 @@
+import 'package:ISeeYou/src/models/medication.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:ISeeYou/src/models/user.dart' as userModel;
@@ -16,7 +17,6 @@ class Auth {
       return userModel.FirebaseUser.fromSnap(snap);
     } on Exception catch (e) {
       Auth().logout();
-      print(e.toString());
     }
     return null;
   }
@@ -72,13 +72,13 @@ class Auth {
             .createUserWithEmailAndPassword(email: email, password: password);
 
         userModel.FirebaseUser user = userModel.FirebaseUser(
-          firstName: firstName,
-          lastName: lastName,
-          email: email,
-          phoneNumber: phoneNumber,
-          emergencyContacts: emergencyContacts,
-          uid: userCredential.user!.uid,
-        );
+            firstName: firstName,
+            lastName: lastName,
+            email: email,
+            phoneNumber: phoneNumber,
+            emergencyContacts: emergencyContacts,
+            uid: userCredential.user!.uid,
+            medications: []);
         await _firestore
             .collection("users")
             .doc(userCredential.user!.uid)
@@ -101,5 +101,21 @@ class Auth {
       res = e.toString();
     }
     return res;
+  }
+
+  Future<void> setMedicationHistory(int index, List<DateTime> history) async {
+    userModel.FirebaseUser? user = await getUserDetails();
+    if (user == null) {
+      return;
+    }
+    List<Medication> medications = user.meds;
+
+    medications[index].history = history;
+    return;
+
+    await _firestore
+        .collection("users")
+        .doc(_auth.currentUser!.uid)
+        .update({"medications": medications});
   }
 }

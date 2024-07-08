@@ -10,6 +10,8 @@ class MedicationModifyBar extends StatefulWidget {
 class _MedicationModifyBarState extends State<MedicationModifyBar> {
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.sizeOf(context).width;
+    double height = MediaQuery.sizeOf(context).height;
     return SizedBox(
       height: 64,
       child: Container(
@@ -23,11 +25,30 @@ class _MedicationModifyBarState extends State<MedicationModifyBar> {
               ),
             ]),
         child: Row(
+          mainAxisAlignment: width > 600
+              ? MainAxisAlignment.end
+              : MainAxisAlignment.spaceEvenly,
           children: [
             ElevatedButton(
                 onPressed: () {},
                 child: Column(
-                  children: [Icon(Icons.add), Text("Add Meds")],
+                  children: [Icon(Icons.add), Text("Add")],
+                )),
+            ElevatedButton(
+                onPressed: () {},
+                child: Column(
+                  children: [
+                    Icon(Icons.delete_forever_outlined),
+                    Text("Delete")
+                  ],
+                )),
+            ElevatedButton(
+                onPressed: () {},
+                child: Column(
+                  children: [
+                    Icon(Icons.delete_forever_outlined),
+                    Text("Modify")
+                  ],
                 ))
           ],
         ),
