@@ -6,7 +6,6 @@ import 'package:ISeeYou/src/widgets/text_field_input.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -71,7 +70,6 @@ class _RegisterScreenState extends State<RegisterScreen>
     emergencyPhoneNumber1TextEditingController.dispose();
     emergencyPhoneNumber2TextEditingController.dispose();
     emergencyPhoneNumber3TextEditingController.dispose();
-    secretCodeTextEditingController.dispose();
 
     _step = 0;
 
@@ -235,11 +233,6 @@ class _RegisterScreenState extends State<RegisterScreen>
                         obscureText: true,
                         textInputType: TextInputType.visiblePassword),
                     SizedBox(height: constraints.maxHeight * 0.03),
-                    TextFieldInput(
-                        controller: secretCodeTextEditingController,
-                        hintText: "Passcode",
-                        textInputType: TextInputType.visiblePassword),
-                    SizedBox(height: constraints.maxHeight * 0.03),
                     TextButton(
                       style: TextButton.styleFrom(
                         foregroundColor: Theme.of(context).colorScheme.primary,
@@ -255,15 +248,6 @@ class _RegisterScreenState extends State<RegisterScreen>
                           ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(
                               content: Text("Passwords do not match"),
-                              duration: Duration(seconds: 3),
-                            ),
-                          );
-                          return;
-                        } else if (secretCodeTextEditingController.text !=
-                            dotenv.get('SECRET_CODE')) {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                              content: Text("Invalid secret code"),
                               duration: Duration(seconds: 3),
                             ),
                           );
