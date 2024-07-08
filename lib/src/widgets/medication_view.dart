@@ -19,6 +19,7 @@ class _MedicationViewState extends State<MedicationView> {
     Future.microtask(() {
       userProvider = Provider.of<UserProvider>(context, listen: false);
       userProvider.refreshUser();
+      userProvider.listenForFirestoreUpdates();
     });
   }
 
@@ -27,8 +28,8 @@ class _MedicationViewState extends State<MedicationView> {
     double width = MediaQuery.sizeOf(context).width;
     return Consumer<UserProvider>(builder: (context, userProvider, _) {
       return Expanded(
-        child: width < 600
-            ? userProvider.user?.medications.length != 0
+        child: SingleChildScrollView(
+            child: userProvider.user?.medications.length != 0
                 ? Column(
                     children: userProvider.user?.medications
                             .map((medication) => MedicationCard(
@@ -52,8 +53,7 @@ class _MedicationViewState extends State<MedicationView> {
                         style: Theme.of(context).textTheme.displaySmall,
                       ),
                     ),
-                  )
-            : Placeholder(),
+                  )),
       );
     });
   }

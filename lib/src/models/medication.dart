@@ -1,9 +1,9 @@
 import 'package:firebase_core/firebase_core.dart';
 
 class Medication {
-  final String name;
-  final String dosage;
-  final double frequency;
+  String name;
+  String dosage;
+  double frequency;
   List<DateTime> _history;
 
   Medication({
@@ -17,7 +17,7 @@ class Medication {
     return {
       'name': name,
       'dosage': dosage,
-      'frequency': frequency,
+      'frequency': frequency.toString(),
       'history': _history.map((e) => e.toIso8601String()).toList(),
     };
   }
@@ -27,6 +27,10 @@ class Medication {
   set history(List<DateTime> value) {
     _history = value;
   }
+
+  set setName(String value) => name = value;
+  set setDosage(String value) => dosage = value;
+  set setFrequency(double value) => frequency = value;
 
   static Medication fromJson(Map<String, dynamic> json) {
     List<DateTime> firebaseHistory =

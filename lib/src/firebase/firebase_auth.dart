@@ -104,18 +104,75 @@ class Auth {
   }
 
   Future<void> setMedicationHistory(int index, List<DateTime> history) async {
-    userModel.FirebaseUser? user = await getUserDetails();
-    if (user == null) {
-      return;
+    try {
+      userModel.FirebaseUser? user = await getUserDetails();
+      if (user == null) {
+        return;
+      }
+      List<Medication> medications = user.meds;
+
+      medications[index].history = history;
+
+      await _firestore
+          .collection("users")
+          .doc(_auth.currentUser!.uid)
+          .update({"medications": medications.map((e) => e.toJson()).toList()});
+    } on Exception catch (e) {
+      Auth().logout();
     }
-    List<Medication> medications = user.meds;
+  }
 
-    medications[index].history = history;
-    return;
+  Future<void> addMedicationFirebase(Medication med) async {
+    try {
+      userModel.FirebaseUser? user = await getUserDetails();
+      if (user == null) {
+        return;
+      }
 
-    await _firestore
-        .collection("users")
-        .doc(_auth.currentUser!.uid)
-        .update({"medications": medications});
+      user.medications.add(med);
+
+      await _firestore.collection("users").doc(_auth.currentUser!.uid).update(
+          {"medications": user.medications.map((e) => e.toJson()).toList()});
+    } on Exception catch (e) {
+      Auth().logout();
+    }
+  }
+
+  Future<void> deleteMedication(int index) async {
+    try {
+      userModel.FirebaseUser? user = await getUserDetails();
+      if (user == null) {
+        return;
+      }
+
+      user.medications.removeAt(index);
+
+      await _firestore.collection("users").doc(_auth.currentUser!.uid).update(
+          {"medications": user.medications.map((e) => e.toJson()).toList()});
+    } catch (e) {
+      Auth().logout();
+    }
+  }
+
+  Future<void> modifyMedication(
+      int index, String name, String dosage, double frequency) async {
+    try {
+      userModel.FirebaseUser? user = await getUserDetails();
+      if (user == null) {
+        return;
+      }
+
+      List<Medication> meds = user.medications;
+      meds[index].name = name;
+      meds[index].dosage = dosage;
+      meds[index].frequency = frequency;
+
+      await _firestore
+          .collection("users")
+          .doc(_auth.currentUser!.uid)
+          .update({"medications": meds.map((e) => e.toJson()).toList()});
+    } catch (e) {
+      print(e.toString());
+    }
   }
 }
