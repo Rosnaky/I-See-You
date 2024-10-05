@@ -15,7 +15,7 @@ class Auth {
           await _firestore.collection('users').doc(user.uid).get();
 
       return userModel.FirebaseUser.fromSnap(snap);
-    } on Exception catch (e) {
+    } on Exception {
       Auth().logout();
     }
     return null;
@@ -117,7 +117,7 @@ class Auth {
           .collection("users")
           .doc(_auth.currentUser!.uid)
           .update({"medications": medications.map((e) => e.toJson()).toList()});
-    } on Exception catch (e) {
+    } on Exception {
       Auth().logout();
     }
   }
@@ -133,7 +133,7 @@ class Auth {
 
       await _firestore.collection("users").doc(_auth.currentUser!.uid).update(
           {"medications": user.medications.map((e) => e.toJson()).toList()});
-    } on Exception catch (e) {
+    } on Exception {
       Auth().logout();
     }
   }

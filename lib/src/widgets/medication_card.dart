@@ -1,6 +1,5 @@
 import 'package:ISeeYou/src/firebase/firebase_auth.dart';
 import 'package:ISeeYou/src/providers/medication_view_provider.dart';
-import 'package:ISeeYou/src/providers/user_provider.dart';
 import 'package:ISeeYou/src/widgets/text_field_input.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
