@@ -42,7 +42,6 @@ class _RegisterScreenState extends State<RegisterScreen>
   late AnimationController progressController;
 
   bool _isLoading = false;
-  DateTime? _dateOfBirth;
   int _step = 0;
 
   @override
@@ -90,94 +89,97 @@ class _RegisterScreenState extends State<RegisterScreen>
             appBar: AppBar(),
             body: LayoutBuilder(builder: (context, constraints) {
               return Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Text(
-                      "Register with",
-                      style: Theme.of(context)
-                          .textTheme
-                          .displayMedium
-                          ?.copyWith(fontWeight: FontWeight.w300),
-                    ),
-                    Text(
-                      "I See You",
-                      style: Theme.of(context)
-                          .textTheme
-                          .displayMedium
-                          ?.copyWith(
-                              fontWeight: FontWeight.w500,
-                              color: Theme.of(context).colorScheme.primary),
-                    ),
-                    SizedBox(height: constraints.maxHeight * 0.1),
-                    registerWidget(constraints),
-                    _step == 0
-                        ? Padding(
-                            padding: const EdgeInsets.all(20.0),
-                            child: Container(
-                              width: constraints.maxWidth * 0.9,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  border: Border.all(
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .onBackground,
-                                  )),
-                              child: Padding(
-                                padding:
-                                    const EdgeInsets.fromLTRB(10.0, 10, 10, 0),
-                                child: Column(
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.only(top: 8.0),
-                                      child: Text("Already have an account?",
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .displaySmall
-                                              ?.copyWith(fontSize: 14)),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.fromLTRB(
-                                          12.0, 12, 12, 0),
-                                      child: TextButton(
-                                        style: TextButton.styleFrom(
-                                          foregroundColor: Theme.of(context)
-                                              .colorScheme
-                                              .primary,
-                                          backgroundColor: Theme.of(context)
-                                              .colorScheme
-                                              .onPrimary,
-                                          shape: RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(10),
-                                          ),
-                                        ),
-                                        onPressed: () {
-                                          Navigator.pushNamed(
-                                              context, LoginScreen.routeName);
-                                        },
-                                        child: const SizedBox(
-                                            width: 80,
-                                            height: 30,
-                                            child: Column(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              children: [
-                                                Text("Login"),
-                                              ],
-                                            )),
+                child: SingleChildScrollView(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text(
+                        "Register with",
+                        style: Theme.of(context)
+                            .textTheme
+                            .displayMedium
+                            ?.copyWith(fontWeight: FontWeight.w300),
+                      ),
+                      Text(
+                        "I See You",
+                        style: Theme.of(context)
+                            .textTheme
+                            .displayMedium
+                            ?.copyWith(
+                                fontWeight: FontWeight.w500,
+                                color: Theme.of(context).colorScheme.primary),
+                      ),
+                      SizedBox(height: constraints.maxHeight * 0.1),
+                      registerWidget(constraints),
+                      _step == 0
+                          ? Padding(
+                              padding: const EdgeInsets.all(20.0),
+                              child: Container(
+                                width: constraints.maxWidth * 0.9,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10),
+                                    border: Border.all(
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .onBackground,
+                                    )),
+                                child: Padding(
+                                  padding: const EdgeInsets.fromLTRB(
+                                      10.0, 10, 10, 0),
+                                  child: Column(
+                                    children: [
+                                      Padding(
+                                        padding:
+                                            const EdgeInsets.only(top: 8.0),
+                                        child: Text("Already have an account?",
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .displaySmall
+                                                ?.copyWith(fontSize: 14)),
                                       ),
-                                    ),
-                                    SizedBox(
-                                        height: constraints.maxHeight * 0.03),
-                                  ],
+                                      Padding(
+                                        padding: const EdgeInsets.fromLTRB(
+                                            12.0, 12, 12, 0),
+                                        child: TextButton(
+                                          style: TextButton.styleFrom(
+                                            foregroundColor: Theme.of(context)
+                                                .colorScheme
+                                                .primary,
+                                            backgroundColor: Theme.of(context)
+                                                .colorScheme
+                                                .onPrimary,
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(10),
+                                            ),
+                                          ),
+                                          onPressed: () {
+                                            Navigator.pushNamed(
+                                                context, LoginScreen.routeName);
+                                          },
+                                          child: const SizedBox(
+                                              width: 80,
+                                              height: 30,
+                                              child: Column(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: [
+                                                  Text("Login"),
+                                                ],
+                                              )),
+                                        ),
+                                      ),
+                                      SizedBox(
+                                          height: constraints.maxHeight * 0.03),
+                                    ],
+                                  ),
                                 ),
                               ),
-                            ),
-                          )
-                        : Container(),
-                  ],
+                            )
+                          : Container(),
+                    ],
+                  ),
                 ),
               );
             }),

@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ISeeYou
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: ISeeYou
+  template:
+    metadata:
+      labels:
+        app: ISeeYou
+    spec:
+      containers:
+      - name: ISeeYou
+        image: rosnaky/iseeyou:latest
+        ports:
+        - containerPort: 8080

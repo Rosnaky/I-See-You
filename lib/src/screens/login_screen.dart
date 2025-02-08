@@ -20,7 +20,6 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  bool _isLoading = false;
 
   @override
   void dispose() {
@@ -128,9 +127,7 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   void loginUser() async {
-    setState(() {
-      _isLoading = true;
-    });
+    setState(() {});
 
     await Auth()
         .login(email: _emailController.text, password: _passwordController.text)
@@ -149,8 +146,6 @@ class _LoginScreenState extends State<LoginScreen> {
         content: Text(e.toString()),
         backgroundColor: myTheme.colorScheme.error,
       ));
-    }).whenComplete(() => setState(() {
-              _isLoading = false;
-            }));
+    }).whenComplete(() => setState(() {}));
   }
 }
